@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>桂电宽带预拨号</title>
+</head>
+
+<body class="mdui-theme-primary-pink mdui-theme-accent-pink">
+    <!-- jQuery -->
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <!--引入MDUI样式文件-->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/mdui/0.4.1/css/mdui.min.css">
+    <script src="https://cdn.staticfile.org/mdui/0.4.1/js/mdui.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <!--自定义css-->
+    <style>
+        .diy_blank {
+        display: block;
+        margin: 0 auto 24px auto;
+        font-size: 12px;
+        color: #6f7180;
+    }
+</style>
+
+    <div style="max-width: 600px; margin: auto">
+        <!-- 应用状态栏 -->
+        <div class="mdui-toolbar mdui-color-theme">
+            <a class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
+            <span class="mdui-typo-title">桂电宽带预拨号</span>
+            <div class="mdui-toolbar-spacer"></div>
+            <a class="mdui-btn mdui-btn-icon" onclick="location.reload()"><i class="mdui-icon material-icons">refresh</i></a>
+        </div>
+        <!--内容宽度最大是卡片的85%-->
+        <div class="mdui-card mdui-ripple">
+            <div style="max-width: 85%; margin: auto">
+                <h1 class="mdui-text-color-theme" style="padding-top: 30px; padding-bottom: 30px; text-align: center; font-weight: bold;">桂电宽带预拨号<div style="font-size: small;">感谢相伴，后会有期</div></h1>
+                <!-- 选择校区 -->
+                <div class="diy_blank mdui-ripple">
+                    <i class="mdui-icon material-icons">place</i>
+                    <span>选择校区</span>
+                    <select class="mdui-select" id="campus" style="display: block; width: 100%">
+                        <option value="1">花江校区</option>
+                        <option value="2">花江校区（备用）</option>
+                        <option value="3">金鸡岭</option>
+                    </select>
+                </div>
+                <!-- 选择运营商 -->
+                <div class="diy_blank mdui-ripple">
+                    <i class="mdui-icon material-icons">public</i>
+                    <span>选择运营商</span>
+                    <select class="mdui-select" id="isp" style="display: block; width: 100%">
+                        <option value="3">中国移动</option>
+                        <option value="2">中国电信</option>
+                        <option value="1">中国联通</option>
+                    </select>
+                </div>
+                <!-- 路由器MAC地址 -->
+                <div class="diy_blank mdui-ripple">
+                    <i class="mdui-icon material-icons">router</i>
+                    <span>路由器MAC地址</span>
+                    <input class="mdui-textfield-input" id="mac" type="text" placeholder="6B-3C-27-53-6F-C9" maxlength="17" />
+                </div>
+                <button class="diy_blank mdui-ripple mdui-btn mdui-btn-raised mdui-color-theme" id="btn" style="display: block; width: 250px">确定
+                </button>
+            </div>
+        </div>
+        <!-- 卡片结束 -->
+        <div class="diy_blank mdui-panel" mdui-panel>
+            <!-- 子项1 -->
+            <div class="mdui-panel-item mdui-panel-item-open mdui-ripple">
+                <div class="mdui-panel-item-header">如何使用？( ˘•ω•˘ )迫真</div>
+                <div class="mdui-panel-item-body">
+                    <div style="text-align: left">
+                        <p>让普通路由器（或电脑）在宿舍拨号宽带，免折腾，故搭了理论上24h运行的proxy，方便大家使用路由器。在宿舍建议使用5G（支持802.11ac协议）的路由器，避免2.4G信道竞争，提升无线性能。</p>
+                        <div style="font-weight: bold; color: red">
+                            <br>
+                            <p>1、连路由器，登陆后台，查看WAN口MAC地址</p>
+                            <p>2、用任何一个手机的流量打开此页面，填入所需信息</p>
+                            <p>3、点确定，出现成功提示后，连回路由器，登录后台</p>
+                            <p>4、将路由器设置成【拨号上网模式】，此时路由器可以拨号成功了</p>
+                            <p>5、如果依然提示“服务器未响应”，请一定要插拔路由器电源重启</p>
+                            <p>【注意】MAC地址是WAN口MAC地址！！！MAC地址是WAN口MAC地址！！！MAC地址是WAN口MAC地址！！！路由器底部铭牌不是WAN口MAC！！！一定要到192.168.1.1里面查看！！！若克隆过电脑的MAC地址，建议恢复默认MAC地址，以免引起冲突</p>
+                            <br>
+                            <p>如第二天早上路由器断网了，可在此网页上填好MAC点击确定，这时路由器可以拨号了，如果不行，建议拔插路由器电源（不要在路由器管理页点击重启）。</p>
+                            <p>每栋宿舍的通网时间存在少许误差，故心跳包服务可能跟不上大家通网的时间，因此下线心跳包服务，请各位谅解</p>
+                            <br>
+                        </div>
+                        <p>MAC地址示例：6B-3C-27-53-6F-C9，不区分大小写，请以'-'或':'分隔</p>
+                        <p>【另请参阅：】</p>
+                        <p><a href="/static/html/help.html">路由器MAC地址在哪？</a></p>
+                        <p><a href="/static/html/help2.html">出校控制器原理</a></p>
+                        <p><a href="/static/html/history.html">近期历史服务记录</a></p>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <!-- 子项2 -->
+            <div class="mdui-panel-item mdui-panel-item-open mdui-ripple">
+                <div class="mdui-panel-item-header">打赏1毛救救孩子吧(๑•́ω•̀๑)</div>
+                <div class="mdui-panel-item-body">
+                    <p>打赏一颗金坷垃支持开发^_^</p>
+                    <p>如果对您有帮助，请分享给你的基友✧*｡٩(ˊωˋ*)و✧*｡。</p>
+                    <p>微信赞赏码：</p>
+                    <img src="/static/pic/wechat_code.jpg" class="diy_blank" style="width: 100%">
+                    <p>大吉大利，今晚吃鸡！</p>
+                </div>
+            </div>
+            <!-- 子项3 -->
+            <div class="mdui-panel-item mdui-panel-item-open mdui-ripple">
+                <div class="mdui-panel-item-header">关于</div>
+                <div class="mdui-panel-item-body">
+                    <p>参考了该开源项目：<a href="https://github.com/xuzhipengnt/ipclient_gxnu/blob/master/README.md">广西师大的出校控制工具开源实现（包括桂林电子科大）</a></p>
+                    <br>
+                    <p>作者：提莫队长</p>
+                    <p>自己钦定的版本号：V1.5.0</p>
+                    <p>佛系更新，随缘维护！</p>
+                    <p>与我探讨哲学问题：770409504@qq.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 附加内容卡片 -->
+    <div class="mdui-card mdui-ripple">
+        <!-- 可扩展面板 -->
+
+    </div>
+
+    <div class="mdui-dialog" id="failed_dialog">
+        <div class="mdui-dialog-title">MAC地址格式有误，请仔细检查</div>
+        <div class="mdui-dialog-content">同上( ˘•ω•˘ )</div>
+        <div class="mdui-dialog-actions mdui-dialog-actions-stacked">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>好的</button>
+        </div>
+    </div>
+
+    <div class="mdui-dialog" id="result_dialog">
+        <div class="mdui-dialog-title"></div>
+        <div id="result_dialog_text"></div>
+        <div class="mdui-dialog-actions mdui-dialog-actions-stacked" id="result_dialog_buttom">
+            <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>好的</button>
+        </div>
+        <!-- 加载中进度条 -->
+        <div class="mdui-progress" style="margin: auto; width: 300px">
+            <div class="mdui-progress-indeterminate"></div>
+        </div>
+    </div>
+
+    </div>
+    </div>
+</body>
+
+</html>

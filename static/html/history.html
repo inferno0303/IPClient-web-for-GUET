@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log</title>
+</head>
+<body>
+<!-- jQuery -->
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+<!--引入MDUI样式文件-->
+<link rel="stylesheet" href="https://cdn.staticfile.org/mdui/0.4.1/css/mdui.min.css">
+<script src="https://cdn.staticfile.org/mdui/0.4.1/js/mdui.min.js"></script>
+<style>
+    .mdui-table-fluid {
+        display: block;
+        margin: 15px auto;
+        font-size: 10px;
+    }
+</style>
+<script>
+    // jQuery函数
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/history",
+            timeout: 5000,
+            success: function (msg) {
+                let info = msg.data;
+                info.reverse();
+                let maxRow = 0;
+                for (let i = 0; i < info.length; i++) {
+                    let eachRow = '';
+                    for (let j = 0; j < info[i].length; j++) {
+                        eachRow += "<th>" + info[i][j] + "</th>"
+                    }
+                    eachRow = "<tr>" + eachRow + "</tr>";
+                    $("#table1 tbody").append(eachRow);
+                    maxRow += 1;
+                    if (maxRow > 1000) {
+                        break
+                    }
+                }
+                $("#overview").append("近3天有" + info.length + "用户，使用了本站提供的服务")
+            },
+            error: function (msg) {
+                mdui.snackbar({
+                    message: msg
+                });
+            }
+        })
+    })
+</script>
+<div id="app">
+    <h1 style="text-align: center">近期历史记录(这是Log)</h1>
+    <div id="overview" style="text-align: center"></div>
+    <div style="text-align: center">【注】运营商：1--联通；2--电信；3--移动<br></div>
+    <div class="mdui-table-fluid" id="table1">
+        <table class="mdui-table">
+            <thead>
+            <tr>
+                <th style="width: 10px">#</th>
+                <th style="width: 30px">MAC地址</th>
+                <th style="width: 10px">运营商</th>
+                <th style="width: 10px">校区</th>
+                <th style="width: 10px">付费用户</th>
+                <th style="width: 30px">首次使用</th>
+                <th style="width: 30px">最近一次</th>
+                <th>使用次数</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
