@@ -8,7 +8,7 @@ from services.make_package import MakePackage
 from services.send_package import SendPackage
 from services.verify_string import verify_mac_address, verify_isp, verify_campus
 # ORM
-from db_model import mydb, mac_record, forward_device
+from model.db_model import mydb, mac_record, forward_device
 
 
 app = Flask(__name__)  # 实例化flask_app
