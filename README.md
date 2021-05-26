@@ -1,20 +1,56 @@
-# 桂电宽带预拨号 IPClient-web-for-GUET
+# 桂电宽带预拨号
 
-### 概述
+## 项目介绍
+
+桂电宽带预拨号 IPClient-web-for-GUET，解决了学生在宿舍无法用路由器的难题。
 
 桂林电子科技大学「IPClient出校器」网页版，提供「代理预拨号服务」，让所有宿舍可方便使用路由器PPPOE拨号至运营商。
 
-本项目基于 Flask + JS Native + OpenWRT Shell 实现。
+**因学校更换新的 Dr.com 认证系统，IPClient项目已停止维护。**🥰
 
-**因学校更换新的Dr.com认证系统，IPClient项目已与2019年4月停止维护。**
+*在桂电，折腾校园网是必经之路。😄* 
 
-### PPPOE原理
+## 软件架构
+
+1. 后端 Python Flask + 前端 JS Native；
+
+2. 搭建UDP Reverse Tunnel：通过 Frp 反向代理，将校园网内 OpenWRT 路由器的20015映射到公网服务器（如：阿里云）的20015端口；
+
+3. 配置双栈：同时连接运营商网络+校园网，运营商网络负责frp，校园网负责转发数据包；
+
+4. 新增iptables记录：将路由器20015的udp数据包转发至桂电校园网172.16.1.1:20015，广西师大的ip是202.193.160.123。
+
+   ```iptables -t nat -I PREROUTING -p udp --dport 20015 -j DNAT --to 172.16.1.1```
+
+## 文件目录
+
+config：配置文件，包含数据库配置、数据包转发主机配置；
+
+model：数据库；
+
+services：生成数据包、校验、发送到公网机器；
+
+static：网页；
+
+app.py：后端程序入口。
+
+
+
+## 运行效果
+
+<img src="https://cdn.jsdelivr.net/gh/yangxu770409504/assets@main/20210527/桂电预拨号主界面.3g259kk2g8g0.png" alt="主界面" style="zoom: 50%;" />
+
+## 本软件解决了什么
+
+一句话：解决了学生在宿舍无法用路由器的难题。
+
+### 先了解PPPOE原理
 
 PPP协议使用3种类型的LCP帧来完成每个PPP链路建立维护终止阶段的工作。在阅读这段内容之前，假设读者已有一定的计算机网络基础知识。
 
-1、链路建立帧（Configure-Request、Configure-Ack、Configure-Nak和Configure-Reject）用于建立和配置链路。
-2、链路维护帧（Code-Reject、Protocol-Reject、Echo-Request、Echo-Reply和Discard-Request）用于管理和调试链路。
-3、链路终止帧（Terminate-Request和Terminate-Ack）用于终止链路。
+1. 链路建立帧（Configure-Request、Configure-Ack、Configure-Nak和Configure-Reject）用于建立和配置链路。
+2. 链路维护帧（Code-Reject、Protocol-Reject、Echo-Request、Echo-Reply和Discard-Request）用于管理和调试链路。
+3. 链路终止帧（Terminate-Request和Terminate-Ack）用于终止链路。
 
 ### 为什么需要预拨号
 

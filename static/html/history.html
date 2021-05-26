@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Log</title>
+    <title>服务历史记录</title>
 </head>
 <body>
 <!-- jQuery -->
@@ -13,8 +13,8 @@
 <style>
     .mdui-table-fluid {
         display: block;
-        margin: 15px auto;
-        font-size: 10px;
+        margin: 10px auto;
+        font-size: 9px;
     }
 </style>
 <script>
@@ -40,7 +40,7 @@
                         break
                     }
                 }
-                $("#overview").append("近3天有" + info.length + "用户，使用了本站提供的服务")
+                $("#overview").append("近期有" + info.length + "用户，使用了本站提供的服务")
             },
             error: function (msg) {
                 mdui.snackbar({
@@ -51,9 +51,9 @@
     })
 </script>
 <div id="app">
-    <h1 style="text-align: center">近期历史记录(这是Log)</h1>
-    <div id="overview" style="text-align: center"></div>
-    <div style="text-align: center">【注】运营商：1--联通；2--电信；3--移动<br></div>
+    <h1 style="text-align: center">服务历史记录</h1>
+    <div id="overview" style="text-align: center; margin: 10px auto;"></div>
+    <div style="text-align: center; margin: 10px auto; color: #6f7180;">运营商：1--联通；2--电信；3--移动<br></div>
     <div class="mdui-table-fluid" id="table1">
         <table class="mdui-table">
             <thead>

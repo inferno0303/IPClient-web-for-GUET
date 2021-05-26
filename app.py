@@ -1,8 +1,9 @@
 from flask import *
-import configparser
 import pymysql
 import flask_redis
 import datetime
+# 配置
+from config.read_config import get_config
 # 验证合法性函数
 from services.make_package import MakePackage
 from services.send_package import SendPackage
@@ -14,8 +15,7 @@ from model.db_model import mydb, mac_record, forward_device
 app = Flask(__name__)  # 实例化flask_app
 
 # 配置数据库
-db_config = configparser.ConfigParser()
-db_config.read('config.ini')
+db_config = get_config()
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://' + db_config.get('DB', 'DB_USER') + ':' + db_config.get('DB', 'DB_PASSWORD') + '@' + db_config.get('DB', 'DB_HOST') + '/' + db_config.get('DB', 'DB_DB')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config["SQLALCHEMY_ECHO"] = False
@@ -125,10 +125,11 @@ def write_to_db(mac, isp, campus):
 
 
 def get_all_record():
-    start_time = datetime.datetime.today() + datetime.timedelta(-3)
+    start_time = datetime.datetime.today() + datetime.timedelta(-3000)
     end_time = datetime.datetime.today()
     result = mydb.session.query(mac_record).filter(mydb.or_(mac_record.addTime.between(start_time, end_time), mac_record.lastTime.between(start_time, end_time))).all()
-    result = [(i.id, i.mac, i.isp, '花江校区' if i.campus == '1' else '东区', '没有' if i.payingCustomer is None else '是的', datetime.datetime.strftime(i.addTime, "%Y-%m-%d_%H:%M:%S"), datetime.datetime.strftime(i.lastTime, "%Y-%m-%d_%H:%M:%S") if i.lastTime else None, i.count) for i in result]
+    print(result)
+    result = [(i.id, i.mac, i.isp, '花江校区' if i.campus == '1' else '东区', '' if i.payingCustomer is None else '是的', datetime.datetime.strftime(i.addTime, "%Y-%m-%d_%H:%M:%S"), datetime.datetime.strftime(i.lastTime, "%Y-%m-%d_%H:%M:%S") if i.lastTime else None, i.count) for i in result]
     return result
 
 
